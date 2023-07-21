@@ -109,4 +109,6 @@ gst-launch-1.0 -v \
   ! audio/mpeg, mpegversion=4 \
   ! mux.
 ```
+Vertical diagram using Graphviz's DOT language:
+
 ![image](https://github.com/drunkod/gst-notes-livestream/assets/9677471/159f871d-6097-46eb-9698-625c940d9ae1)
