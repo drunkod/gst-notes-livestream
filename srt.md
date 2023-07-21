@@ -136,8 +136,7 @@ And a sender client like this:
   ! queue \
   ! decodebin \
   ! videoconvert \
-  ! x264enc bitrate=1000 tune=zerolatency \
-  ! video/x-h264 ! h264parse \
+  ! videoscale ! video/x-raw,width=640,height=360 \
   \
   ! compositor name=videomix \
   sink_0::alpha=1 sink_1::alpha=1 \
@@ -150,13 +149,8 @@ And a sender client like this:
   \
   demux. \
   ! queue \
-  ! avdec_aac \
-  ! audioconvert \
-  ! audioresample \
-  ! avenc_aac bitrate=96000 \
-  ! audio/mpeg \
-  ! aacparse \
-  ! audio/mpeg, mpegversion=4 \
+  ! decodebin \
+  ! audioconvert ! audioresample \
   \
   ! audiomixer name=audiomix \
   ! audioconvert ! audioresample ! avenc_aac \
@@ -171,19 +165,13 @@ And a sender client like this:
   ! queue \
   ! decodebin \
   ! videoconvert \
-  ! x264enc bitrate=1000 tune=zerolatency \
-  ! video/x-h264 ! h264parse \
+  ! videoscale ! video/x-raw,width=320,height=180 \
   ! videomix. \
   \
   demux2. \
   ! queue \
-  ! avdec_aac \
-  ! audioconvert \
-  ! audioresample \
-  ! avenc_aac bitrate=96000 \
-  ! audio/mpeg \
-  ! aacparse \
-  ! audio/mpeg, mpegversion=4 \
+  ! decodebin \
+  ! audioconvert ! audioresample \
   ! audiomix. \
   \
     mux. \
