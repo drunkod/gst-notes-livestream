@@ -88,9 +88,10 @@ And a sender client like this:
 
 ```
 gst-launch-1.0 -v \
-  srtsrc uri=srt://127.0.0.1:8888 \
+  srtsrc uri=srt://192.168.43.1:8888 \
   ! queue \
   ! tsdemux name=demux \
+  \
   demux. \
   ! queue \
   ! decodebin \
@@ -98,7 +99,7 @@ gst-launch-1.0 -v \
   ! x264enc bitrate=1000 tune=zerolatency \
   ! video/x-h264 ! h264parse \
   ! flvmux name=mux \
-  ! rtmp2sink location=$RTMP_KEY \
+  \
   demux. \
   ! queue \
   ! avdec_aac \
@@ -108,7 +109,11 @@ gst-launch-1.0 -v \
   ! audio/mpeg \
   ! aacparse \
   ! audio/mpeg, mpegversion=4 \
-  ! mux.
+  ! mux. \
+  \
+   mux. \
+  ! rtmp2sink location=$RTMP_KEY \
+
 ```
 Vertical diagram using Graphviz's DOT language:
 
