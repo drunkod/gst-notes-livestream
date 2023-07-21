@@ -118,3 +118,77 @@ gst-launch-1.0 -v \
 Vertical diagram using Graphviz's DOT language:
 
 ![image](https://github.com/drunkod/gst-notes-livestream/assets/9677471/159f871d-6097-46eb-9698-625c940d9ae1)
+
+## From 2 srtsrc sourse sending to rtmp2sink server
+
+```sh
+export RTMP_KEY=rtmps://dc4-1.rtmp.t.me/s/1234567:3TS_exampleF5bhS784Bw
+```
+
+And a sender client like this:
+
+```
+gst-launch-1.0 -v \
+  srtsrc uri=srt://192.168.43.1:8888 \
+  ! queue \
+  ! tsdemux name=demux \
+  \
+  demux. \
+  ! queue \
+  ! decodebin \
+  ! videoconvert \
+  ! x264enc bitrate=1000 tune=zerolatency \
+  ! video/x-h264 ! h264parse \
+  \
+  ! compositor name=videomix \
+  sink_0::alpha=1 sink_1::alpha=1 \
+  ! decodebin \
+  ! videoconvert \
+  ! x264enc bitrate=1000 tune=zerolatency \
+  ! video/x-h264 ! h264parse \
+  ! queue \
+  ! flvmux name=mux \
+  \
+  demux. \
+  ! queue \
+  ! avdec_aac \
+  ! audioconvert \
+  ! audioresample \
+  ! avenc_aac bitrate=96000 \
+  ! audio/mpeg \
+  ! aacparse \
+  ! audio/mpeg, mpegversion=4 \
+  \
+  ! audiomixer name=audiomix \
+  ! audioconvert ! audioresample ! avenc_aac \
+  ! queue \
+  ! mux. \
+  \
+  srtsrc uri=srt://192.168.43.1:8889 \
+  ! queue \
+  ! tsdemux name=demux2 \
+  \
+  demux2. \
+  ! queue \
+  ! decodebin \
+  ! videoconvert \
+  ! x264enc bitrate=1000 tune=zerolatency \
+  ! video/x-h264 ! h264parse \
+  ! videomix. \
+  \
+  demux2. \
+  ! queue \
+  ! avdec_aac \
+  ! audioconvert \
+  ! audioresample \
+  ! avenc_aac bitrate=96000 \
+  ! audio/mpeg \
+  ! aacparse \
+  ! audio/mpeg, mpegversion=4 \
+  ! audiomix. \
+  \
+    mux. \
+  ! rtmp2sink location=$RTMP_KEY \
+
+```
+Vertical diagram using Graphviz's DOT language:
