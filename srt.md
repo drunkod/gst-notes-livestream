@@ -76,7 +76,7 @@ Set general debug level,
 export RTMP_KEY=rtmps://dc4-1.rtmp.t.me/s/1234567:3TS_exampleF5bhS784Bw
 ```
 
-## Client sending to rtmp2sink server
+## From srtsrc sourse sending to rtmp2sink server
 
 ```sh
 export GST_DEBUG=6 #5
