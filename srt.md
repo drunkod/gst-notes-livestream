@@ -73,14 +73,15 @@ gst-launch-1.0 -v videotestsrc ! video/x-raw, height=360, width=640 ! \
 Set general debug level,
 
 ```sh
-export RTMP_KEY=rtmps://dc4-1.rtmp.t.me/s/1234567:3TS_exampleF5bhS784Bw
+export GST_DEBUG=6 #5
+export GST_DEBUG=GST_REGISTRY:6,GST_PLUGIN:6
 ```
+
 
 ## From srtsrc sourse sending to rtmp2sink server
 
 ```sh
-export GST_DEBUG=6 #5
-export GST_DEBUG=GST_REGISTRY:6,GST_PLUGIN:6
+export RTMP_KEY=rtmps://dc4-1.rtmp.t.me/s/1234567:3TS_exampleF5bhS784Bw
 ```
 
 And a sender client like this:
