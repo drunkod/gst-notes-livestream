@@ -87,7 +87,7 @@ export RTMP_KEY=rtmps://dc4-1.rtmp.t.me/s/1234567:3TS_exampleF5bhS784Bw
 And a sender client like this:
 
 ```
-gst-launch-1.0 -v \
+  gst-launch-1.0 -v \
   srtsrc uri=srt://192.168.43.1:8888 \
   ! queue \
   ! tsdemux name=demux \
@@ -112,8 +112,7 @@ gst-launch-1.0 -v \
   ! mux. \
   \
    mux. \
-  ! rtmp2sink location=$RTMP_KEY \
-
+  ! rtmp2sink location=$RTMP_KEY
 ```
 Vertical diagram using Graphviz's DOT language:
 
@@ -128,7 +127,7 @@ export RTMP_KEY=rtmps://dc4-1.rtmp.t.me/s/1234567:3TS_exampleF5bhS784Bw
 And a sender client like this:
 
 ```
-gst-launch-1.0 -v \
+  gst-launch-1.0 -v \
   srtsrc uri=srt://192.168.43.1:8888 \
   ! queue \
   ! tsdemux name=demux \
@@ -188,7 +187,6 @@ gst-launch-1.0 -v \
   ! audiomix. \
   \
     mux. \
-  ! rtmp2sink location=$RTMP_KEY \
-
+  ! rtmp2sink location=$RTMP_KEY
 ```
 Vertical diagram using Graphviz's DOT language:
