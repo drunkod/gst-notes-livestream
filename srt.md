@@ -178,3 +178,4 @@ And a sender client like this:
   ! rtmp2sink location=$RTMP_KEY
 ```
 Vertical diagram using Graphviz's DOT language:
+![image](https://github.com/drunkod/gst-notes-livestream/assets/9677471/717dd839-11c2-41e4-ba35-26c84021ac0b)
